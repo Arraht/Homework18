@@ -13,8 +13,19 @@ import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final int numberOfEmployees = 3;
-    private List<Employee> employees = new ArrayList<>();
+    private final int numberOfEmployees = 10;
+    private List<Employee> employees = new ArrayList<>(List.of(
+            new Employee("Маргарита", "Дмитриевна"),
+            new Employee("Владимир", "Карташов"),
+            new Employee("Арсений", "Иванов"),
+            new Employee("Софья", "Седова"),
+            new Employee("Аврора", "Ершова"),
+            new Employee("Александра", "Ларионова"),
+            new Employee("Максим", "Коровин"),
+            new Employee("Анна", "Кузьмина"),
+            new Employee("Полина", "Селезнева"),
+            new Employee("Милана", "Богданова")
+    ));
 
     @Override
     public String addEmployee(Employee employee) {
@@ -47,5 +58,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         } else {
             return employee.getFirstName() + " " + employee.getLustName();
         }
+    }
+
+    @Override
+    public Integer num() {
+        return employees.size();
     }
 }
