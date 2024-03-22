@@ -31,4 +31,8 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(firstName, lustName);
     }
+
+    public String toString() {
+        return this.firstName + " " + this.lustName;
+    }
 }
