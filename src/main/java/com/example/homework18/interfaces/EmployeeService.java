@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    String addEmployee(Employee employee);
+    String addEmployee(Integer key,Employee employee);
 
-    String removeEmployee(Employee employee);
+    String removeEmployee(Integer key);
 
-    String searchEmployee(Employee employee);
+    String searchEmployee(Integer key);
 
     Integer num();
 }
