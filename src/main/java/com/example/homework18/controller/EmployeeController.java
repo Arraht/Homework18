@@ -22,10 +22,11 @@ public class EmployeeController {
 
     @GetMapping(path = "/add")
     public String addEmployee(@RequestParam("firstName") String firstName,
-                              @RequestParam("lustName") String lustName) {
+                              @RequestParam("lustName") String lustName,
+                              @RequestParam("key") Integer key) {
         try {
             Employee employee = new Employee(firstName, lustName);
-            return employeeService.addEmployee(employee);
+            return employeeService.addEmployee(key,employee);
         } catch (EmployeeStorageIsFullException e) {
             return "Превышен лимит сотрудников";
         } catch (EmployeeAlreadyAddedException e) {
@@ -34,11 +35,9 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/remove")
-    public String removeEmployee(@RequestParam("firstName") String firstName,
-                                 @RequestParam("lustName") String lustName) {
+    public String removeEmployee(@RequestParam("key") Integer key) {
         try {
-            Employee employee = new Employee(firstName, lustName);
-            return employeeService.removeEmployee(employee);
+            return employeeService.removeEmployee(key);
         } catch (EmptyListException e) {
             return "Список пуст";
         } catch (EmployeeNotFoundException e) {
@@ -47,11 +46,9 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/find")
-    public String searchEmployee(@RequestParam("firstName") String firstName,
-                                 @RequestParam("lustName") String lustName) {
+    public String searchEmployee(@RequestParam("key") Integer key) {
         try {
-            Employee employee = new Employee(firstName, lustName);
-            return employeeService.searchEmployee(employee);
+            return employeeService.searchEmployee(key);
         } catch (EmptyListException e) {
             return "Список пуст";
         } catch (EmployeeNotFoundException e) {
