@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path = "/employee")
 public class EmployeeController {
@@ -23,21 +26,25 @@ public class EmployeeController {
     @GetMapping(path = "/add")
     public String addEmployee(@RequestParam("firstName") String firstName,
                               @RequestParam("lustName") String lustName,
-                              @RequestParam("key") Integer key) {
-        try {
-            Employee employee = new Employee(firstName, lustName);
-            return employeeService.addEmployee(key,employee);
-        } catch (EmployeeStorageIsFullException e) {
-            return "Превышен лимит сотрудников";
-        } catch (EmployeeAlreadyAddedException e) {
-            return "Такой сотрудник уже есть";
+                              @RequestParam("department") Integer department,
+                              @RequestParam("salary") Integer salary,
+                              @RequestParam("ID") Integer id) {
+        {
+            try {
+                Employee employee = new Employee(firstName, lustName, department, salary, id);
+                return employeeService.addEmployee(id, employee);
+            } catch (EmployeeStorageIsFullException e) {
+                return "Превышен лимит сотрудников";
+            } catch (EmployeeAlreadyAddedException e) {
+                return "Такой сотрудник уже есть";
+            }
         }
     }
 
     @GetMapping(path = "/remove")
-    public String removeEmployee(@RequestParam("key") Integer key) {
+    public String removeEmployee(@RequestParam("id") Integer id) {
         try {
-            return employeeService.removeEmployee(key);
+            return employeeService.removeEmployee(id);
         } catch (EmptyListException e) {
             return "Список пуст";
         } catch (EmployeeNotFoundException e) {
@@ -46,16 +53,15 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/find")
-    public String searchEmployee(@RequestParam("key") Integer key) {
+    public String searchEmployee(@RequestParam("id") Integer id) {
         try {
-            return employeeService.searchEmployee(key);
+            return employeeService.searchEmployee(id);
         } catch (EmptyListException e) {
             return "Список пуст";
         } catch (EmployeeNotFoundException e) {
             return "Такого сотрудника нет";
         }
     }
-
     @GetMapping(path = "/num")
     public Integer num() {
         return employeeService.num();
