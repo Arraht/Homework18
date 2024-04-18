@@ -9,6 +9,8 @@ public interface EmployeeService {
 
     String addEmployee(Integer key, Employee employee);
 
+    void checkForIllegalCharacters(Employee employee);
+
     String removeEmployee(Integer id);
 
     String searchEmployee(Integer key);
