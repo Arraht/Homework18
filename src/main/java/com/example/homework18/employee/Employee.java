@@ -1,13 +1,15 @@
 package com.example.homework18.employee;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 
 public class Employee {
-    private String firstName;
-    private String lustName;
-    private int department;
-    private int salary;
-    private int id;
+    private final String firstName;
+    private final String lustName;
+    private final int department;
+    private final int salary;
+    private final int id;
 
     public Employee(String firstName, String lustName, int department, int salary, int id) {
         this.firstName = firstName;
@@ -18,11 +20,19 @@ public class Employee {
     }
 
     public String getFirstName() {
-        return firstName;
+        if (StringUtils.isEmpty(firstName)) {
+            return "";
+        }
+        return StringUtils.substring(firstName, 0, 1).toUpperCase()
+                + StringUtils.substring(firstName, 1);
     }
 
     public String getLustName() {
-        return lustName;
+        if (StringUtils.isEmpty(lustName)) {
+            return "";
+        }
+        return StringUtils.substring(lustName, 0, 1).toUpperCase()
+                + StringUtils.substring(lustName, 1);
     }
 
     public int getDepartment() {

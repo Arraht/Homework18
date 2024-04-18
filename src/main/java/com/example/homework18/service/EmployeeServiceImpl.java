@@ -1,16 +1,12 @@
 package com.example.homework18.service;
 
 import com.example.homework18.employee.Employee;
-import com.example.homework18.exceptions.EmployeeAlreadyAddedException;
-import com.example.homework18.exceptions.EmployeeNotFoundException;
-import com.example.homework18.exceptions.EmployeeStorageIsFullException;
-import com.example.homework18.exceptions.EmptyListException;
+import com.example.homework18.exceptions.*;
 import com.example.homework18.interfaces.EmployeeService;
 import com.example.homework18.map.MapEmployee;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl extends MapEmployee implements EmployeeService {
@@ -18,6 +14,7 @@ public class EmployeeServiceImpl extends MapEmployee implements EmployeeService 
 
     @Override
     public String addEmployee(Integer key, Employee employee) {
+        checkForIllegalCharacters(employee);
         if (super.getEmployees().size() >= numberOfEmployees) {
             throw new EmployeeStorageIsFullException("Превышен лимит сотрудников");
         } else if (super.getEmployees().get(key) != null) {
@@ -54,5 +51,17 @@ public class EmployeeServiceImpl extends MapEmployee implements EmployeeService 
     @Override
     public Integer num() {
         return super.getEmployees().size();
+    }
+
+    @Override
+    public void checkForIllegalCharacters(Employee employee) {
+        boolean checkFirstName = StringUtils
+                .containsNone(employee.getFirstName(), "0123456789+-*/!@#$%^&*()_=`~");
+        boolean checkLustName = StringUtils
+                .containsNone(employee.getLustName(), "0123456789+-*/!@#$%^&*()_=`~");
+        System.out.println(checkFirstName);
+        if (!checkFirstName || !checkLustName) {
+            throw new EmployBadRequestException("BadRequestException");
+        }
     }
 }
