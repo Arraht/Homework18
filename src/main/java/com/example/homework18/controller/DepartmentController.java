@@ -14,21 +14,28 @@ public class DepartmentController {
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
+    @GetMapping(path = "department/salary/sum")
+    public int sumSalaryByDepartment(@RequestParam("department") int department) {
+        return departmentService.sumSalaryByDepartment(department);
+    }
+
     @GetMapping(path = "/departments/max-salary")
     public String maxSalaryDepartment(@RequestParam("department") int department) {
-        return departmentService.maxSalaryDepartment(department);
+        return departmentService.maxSalaryDepartment(department).toString();
     }
+
     @GetMapping(path = "/departments/min-salary")
     public String minSalaryDepartment(@RequestParam("department") int department) {
-        return departmentService.minSalaryDepartment(department);
+        return departmentService.minSalaryDepartment(department).toString();
     }
+
     @GetMapping(path = "/departments/all/departments")
     public String allEmployeeByDepartment(@RequestParam("department") int department) {
-        return departmentService.allEmployeeDepartment(department);
+        return departmentService.allEmployeeDepartment(department).toString();
     }
 
     @GetMapping(path = "/departments/all")
     public String allEmployee() {
-        return departmentService.allEmployee();
+        return departmentService.allEmployee().toString();
     }
 }

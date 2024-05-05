@@ -1,11 +1,18 @@
 package com.example.homework18.interfaces;
 
+import com.example.homework18.employee.Employee;
+
+import java.util.List;
+import java.util.Map;
+
 public interface DepartmentService {
-    String maxSalaryDepartment(int department);
+    Employee maxSalaryDepartment(int department);
 
-    String minSalaryDepartment(int department);
+    int sumSalaryByDepartment(int department);
 
-    String allEmployeeDepartment(int department);
+    Employee minSalaryDepartment(int department);
 
-    String allEmployee();
+    List<Employee> allEmployeeDepartment(int department);
+
+    Map<Integer,List<Employee>> allEmployee();
 }
